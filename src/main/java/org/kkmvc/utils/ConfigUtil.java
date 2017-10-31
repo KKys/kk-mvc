@@ -14,9 +14,9 @@ public final class ConfigUtil {
     /**
      * 加载配置类
      */
-    private static Properties load(String propertiesPath){
+    private static Properties load(String propertiesPath) {
         // 生成输入流
-        InputStream ins=ConfigUtil.class.getResourceAsStream(propertiesPath);
+        InputStream ins = ConfigUtil.class.getResourceAsStream(propertiesPath);
         // 生成properties对象
         Properties p = new Properties();
         try {
@@ -30,55 +30,55 @@ public final class ConfigUtil {
     /**
      * 获取 jdbc 驱动
      */
-    public static String getJdbcDriver(){
-        return CONFIG_PROPERTIES.getProperty(ConfigConstant.JDBC_DRIVER,"com.mysql.jdbc.Driver");
+    public static String getJdbcDriver() {
+        return CONFIG_PROPERTIES.getProperty(ConfigConstant.JDBC_DRIVER, "com.mysql.jdbc.Driver");
     }
 
     /**
      * 获取 jdbc url
      */
-    public static String getJdbcUrl(){
+    public static String getJdbcUrl() {
         return CONFIG_PROPERTIES.getProperty(ConfigConstant.JDBC_URL);
     }
 
     /**
      * 获取 jdbc 用户名
      */
-    public static String getJdbcUsername(){
+    public static String getJdbcUsername() {
         return CONFIG_PROPERTIES.getProperty(ConfigConstant.JDBC_USERNAME);
     }
 
     /**
      * 获取 jdbc 密码
      */
-    public static String getJdbcPassword(){
+    public static String getJdbcPassword() {
         return CONFIG_PROPERTIES.getProperty(ConfigConstant.JDBC_PASSWORD);
     }
 
     /**
      * 获取基础包名
      */
-    public static String getAppBasePackage(){
+    public static String getAppBasePackage() {
         return CONFIG_PROPERTIES.getProperty(ConfigConstant.APP_BASE_PACKAGE);
     }
 
     /**
      * 获取 jsp 路径
      */
-    public static String getAppJspPath(){
-        return CONFIG_PROPERTIES.getProperty(ConfigConstant.APP_JSP_PATH,"/WEB-INF/view");
+    public static String getAppJspPath() {
+        return CONFIG_PROPERTIES.getProperty(ConfigConstant.APP_JSP_PATH, "/WEB-INF/view");
     }
 
     /**
      * 获取 静态资源 路径
      */
-    public static String getAppAssetPath(){
-        return CONFIG_PROPERTIES.getProperty(ConfigConstant.APP_ASSET_PATH,"/asset/");
+    public static String getAppAssetPath() {
+        return CONFIG_PROPERTIES.getProperty(ConfigConstant.APP_ASSET_PATH, "/asset/");
     }
 
     public static void main(String[] args) {
         // 生成输入流
-        InputStream ins=ConfigUtil.class.getResourceAsStream("/log4j.properties");
+        InputStream ins = ConfigUtil.class.getResourceAsStream("/log4j.properties");
         // 生成properties对象
         Properties p = new Properties();
         try {

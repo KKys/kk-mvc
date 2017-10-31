@@ -16,8 +16,6 @@ public interface ConfigConstant {
     String APP_ASSET_PATH = "kkmvc.framework.app.assert_path";
 
 
-
-
     /**
      * kkmvc.framework.jdbc.driver=
      kkmvc.framework.jdbc.url=jdbc:mysql://121.42.8.85:3306/kk-mvc
