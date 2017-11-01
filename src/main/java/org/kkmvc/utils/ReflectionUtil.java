@@ -14,12 +14,12 @@ public class ReflectionUtil {
     /**
      * 创建实例
      */
-    public static Object newInstance(Class<?> cls){
+    public static Object newInstance(Class<?> cls) {
         Object instance;
         try {
             instance = cls.newInstance();
         } catch (Exception e) {
-            LOGGER.error("new instance failure",e);
+            LOGGER.error("new instance failure", e);
             throw new RuntimeException(e);
         }
         return instance;
@@ -32,9 +32,9 @@ public class ReflectionUtil {
         Object result;
         method.setAccessible(true);
         try {
-            result = method.invoke(obj,args);
+            result = method.invoke(obj, args);
         } catch (Exception e) {
-            LOGGER.error("invoke method failure",e);
+            LOGGER.error("invoke method failure", e);
             throw new RuntimeException(e);
         }
         return result;
@@ -43,12 +43,12 @@ public class ReflectionUtil {
     /**
      * 设置成员变量的值
      */
-    public static void setField(Object obj, Field field,Object value){
+    public static void setField(Object obj, Field field, Object value) {
         field.setAccessible(true);
         try {
-            field.set(obj,value);
+            field.set(obj, value);
         } catch (IllegalAccessException e) {
-            LOGGER.error("set field failure",e);
+            LOGGER.error("set field failure", e);
             throw new RuntimeException(e);
         }
     }

@@ -26,17 +26,17 @@ public class ClassHelper {
     /**
      * 获取应用包名下的所有类
      */
-    public static Set<Class<?>> getClassSet(){
+    public static Set<Class<?>> getClassSet() {
         return CLASS_SET;
     }
 
     /**
      * 获取应用包名下的所有Service类
      */
-    public static Set<Class<?>> getServiceClassSet(){
+    public static Set<Class<?>> getServiceClassSet() {
         Set<Class<?>> classSet = new HashSet<Class<?>>();
-        for(Class<?> cls:CLASS_SET){
-            if(cls.isAnnotationPresent(Service.class)){
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(Service.class)) {
                 classSet.add(cls);
             }
         }
@@ -46,10 +46,10 @@ public class ClassHelper {
     /**
      * 获取应用包名下的所有Controller类
      */
-    public static Set<Class<?>> getControllerClassSet(){
+    public static Set<Class<?>> getControllerClassSet() {
         Set<Class<?>> classSet = new HashSet<Class<?>>();
-        for(Class<?> cls:CLASS_SET){
-            if(cls.isAnnotationPresent(Controller.class)){
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(Controller.class)) {
                 classSet.add(cls);
             }
         }
@@ -59,7 +59,7 @@ public class ClassHelper {
     /**
      * 获取应用包名下的所有Bean类（包括service/controller等）
      */
-    public static Set<Class<?>> getBeanClassSet(){
+    public static Set<Class<?>> getBeanClassSet() {
         Set<Class<?>> beanClassSet = new HashSet<Class<?>>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
