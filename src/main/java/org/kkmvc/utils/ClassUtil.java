@@ -89,18 +89,19 @@ public class ClassUtil {
         File[] files = new File(packagePath).listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
+                //判断以class结尾的或者是文件夹的返回，进行下面的操作
                 return (file.isFile() && file.getName().endsWith(".class") || file.isDirectory());
             }
         });
         for (File file : files) {
             String fileName = file.getName();
-            if (file.isFile()) {
+            if (file.isFile()) {//如果是文件，也就是class结尾的
                 String className = fileName.substring(0, fileName.lastIndexOf("."));
                 if (StringUtils.isNotEmpty(packageName)) {
                     className = packageName + "." + className;
                 }
                 doAddClass(classSet, className);
-            } else {
+            } else {//如果是文件夹
                 String subPackagePath = fileName;
                 if (StringUtils.isNotEmpty(packagePath)) {
                     subPackagePath = packagePath + "/" + subPackagePath;
