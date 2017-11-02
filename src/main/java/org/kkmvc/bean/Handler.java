@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 /**
  * 封装Action信息
  */
-@Generated
+
 public class Handler {
     /**
      * controller类
@@ -23,5 +23,8 @@ public class Handler {
     @Getter
     private Method actionMethod;
 
-
+    public Handler(Class<?> controllerClass, Method actionMethod) {
+        this.controllerClass = controllerClass;
+        this.actionMethod = actionMethod;
+    }
 }
