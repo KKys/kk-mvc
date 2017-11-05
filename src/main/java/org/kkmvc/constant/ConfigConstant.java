@@ -15,16 +15,4 @@ public interface ConfigConstant {
     String APP_JSP_PATH = "kkmvc.framework.app.jsp_path";
     String APP_ASSET_PATH = "kkmvc.framework.app.assert_path";
 
-
-    /**
-     * kkmvc.framework.jdbc.driver=
-     kkmvc.framework.jdbc.url=jdbc:mysql://121.42.8.85:3306/kk-mvc
-     kkmvc.framework.jdbc.username=KKys
-     kkmvc.framework.jdbc.password=ysysycyc
-
-     kkmvc.framework.app.base_package=org.kkmvcTest
-     kkmvc.framework.app.jsp_path=/WEB-INF/view/
-     kkmvc.framework.app.assert_path=/assert/
-
-     */
 }

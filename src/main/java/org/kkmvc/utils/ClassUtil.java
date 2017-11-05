@@ -49,21 +49,23 @@ public class ClassUtil {
     public static Set<Class<?>> getClassSet(String packageName) {
         Set<Class<?>> classSet = new HashSet<Class<?>>();
         try {
-            //
+            //获取所有文件的url地址
             Enumeration<URL> urls = getClassloader().getResources(packageName.replace(".", "/"));
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
                 if (url != null) {
                     String protocal = url.getProtocol();
-                    if (protocal.equals("file")) {
+                    if (protocal.equals("file")) {//如果文件类型是file
+                        //处理空格
                         String packagePath = url.getPath().replaceAll("%20", "");
                         addClass(classSet, packagePath, packageName);
-                    } else if (protocal.equals("jar")) {
+                    } else if (protocal.equals("jar")) {//如果文件类型是jar
                         JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
                         if (jarURLConnection != null) {
                             JarFile jarFile = jarURLConnection.getJarFile();
                             if (jarFile != null) {
                                 Enumeration<JarEntry> jarEntries = jarFile.entries();
+                                //循环jar里面的所有.class文件
                                 while (jarEntries.hasMoreElements()) {
                                     JarEntry jarEntry = jarEntries.nextElement();
                                     String jarEntryName = jarEntry.getName();
@@ -85,6 +87,11 @@ public class ClassUtil {
         return classSet;
     }
 
+    /**
+     * @param classSet    最后要存放的classSet
+     * @param packagePath 文件所在的文件夹目录
+     * @param packageName
+     */
     private static void addClass(Set<Class<?>> classSet, String packagePath, String packageName) {
         File[] files = new File(packagePath).listFiles(new FileFilter() {
             @Override
