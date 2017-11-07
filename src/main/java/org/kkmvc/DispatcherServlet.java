@@ -27,6 +27,7 @@ import java.io.IOException;
  * 4)正数的值越小，该servlet的优先级越高，应用启动时就越先加载。
  * <p>
  * 5)当值相同时，容器就会自己选择顺序来加载。
+ *
  */
 @WebServlet(urlPatterns = "/*", loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
