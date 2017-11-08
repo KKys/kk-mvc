@@ -1,7 +1,8 @@
 package org.kkmvc.bean;
 
 
-import lombok.Generated;
+
+import lombok.Data;
 import lombok.Getter;
 
 import java.lang.reflect.Method;
@@ -9,7 +10,6 @@ import java.lang.reflect.Method;
 /**
  * 封装Action信息
  */
-
 public class Handler {
     /**
      * controller类
