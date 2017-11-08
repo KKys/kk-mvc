@@ -18,7 +18,7 @@ import java.util.jar.JarFile;
 /**
  * 类操作工具类
  */
-public class ClassUtil {
+public final class ClassUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
 
     /**

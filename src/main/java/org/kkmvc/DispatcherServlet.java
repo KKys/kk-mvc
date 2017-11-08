@@ -41,7 +41,6 @@ import java.util.Map;
  * 4)正数的值越小，该servlet的优先级越高，应用启动时就越先加载。
  * <p>
  * 5)当值相同时，容器就会自己选择顺序来加载。
- *
  */
 @WebServlet(urlPatterns = "/*", loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
@@ -67,33 +66,33 @@ public class DispatcherServlet extends HttpServlet {
         String requestMethod = request.getMethod().toLowerCase();
         String requestPath = request.getPathInfo();
         //获取Action处理器
-        Handler handler = ControllerHelper.getHandler(requestMethod,requestPath);
-        if(handler != null){
+        Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
+        if (handler != null) {
             //获取Controller类及其Bean实例
             Class<?> controllerClass = handler.getControllerClass();
             Object controllerBean = BeanHelper.getBean(controllerClass);
             //创建请求参数对象
-            Map<String,Object> paramMap = new HashMap<String, Object>();
+            Map<String, Object> paramMap = new HashMap<String, Object>();
             Enumeration<String> paramNames = request.getParameterNames();
             //循环names，取参数values
-            while (paramNames.hasMoreElements()){
+            while (paramNames.hasMoreElements()) {
                 String paramName = paramNames.nextElement();
                 String paramValue = request.getParameter(paramName);
-                paramMap.put(paramName,paramValue);
+                paramMap.put(paramName, paramValue);
             }
             //获取请求体
             String body = CodecUtil.decodeUrl(StreamUtil.getString(request.getInputStream()));
-            if(StringUtils.isNotEmpty(body)){
+            if (StringUtils.isNotEmpty(body)) {
                 //分割请求体的参数
-                String[] params = StringUtils.split(body,"&");
-                if(ArrayUtils.isNotEmpty(params)){
-                    for(String param:params){
+                String[] params = StringUtils.split(body, "&");
+                if (ArrayUtils.isNotEmpty(params)) {
+                    for (String param : params) {
                         //分割参数的key/value
-                        String[] array = StringUtils.split(param,"=");
-                        if(ArrayUtils.isNotEmpty(array)&&array.length==2){
+                        String[] array = StringUtils.split(param, "=");
+                        if (ArrayUtils.isNotEmpty(array) && array.length == 2) {
                             String paramName = array[0];
                             String paramValue = array[1];
-                            paramMap.put(paramName,paramValue);
+                            paramMap.put(paramName, paramValue);
                         }
                     }
                 }
@@ -103,31 +102,31 @@ public class DispatcherServlet extends HttpServlet {
             //调用Action方法
             Method actionMethod = handler.getActionMethod();
             //获取返回值
-            Object result = ReflectionUtil.invokeMethod(controllerBean,actionMethod,param);
+            Object result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
             //处理action方法返回值
-            if(result instanceof View){
+            if (result instanceof View) {
                 //返回JSP页面
-                View view = (View)result;
+                View view = (View) result;
                 String path = view.getPath();
-                if(StringUtils.isNotEmpty(path)){
+                if (StringUtils.isNotEmpty(path)) {
                     //如果url以/开头，说明是重定向到某方法
-                    if(path.startsWith("/")){
-                        response.sendRedirect(request.getContextPath()+path);
-                    }else {
+                    if (path.startsWith("/")) {
+                        response.sendRedirect(request.getContextPath() + path);
+                    } else {
                         //不是重定向的请求，需要添加model信息
-                        Map<String,Object> model = view.getModel();
-                        for(Map.Entry<String,Object> entry:model.entrySet()){
-                            request.setAttribute(entry.getKey(),entry.getValue());
+                        Map<String, Object> model = view.getModel();
+                        for (Map.Entry<String, Object> entry : model.entrySet()) {
+                            request.setAttribute(entry.getKey(), entry.getValue());
                         }
                         //转发到某jsp页面
-                        request.getRequestDispatcher(ConfigUtil.getAppJspPath()+path).forward(request,response);
+                        request.getRequestDispatcher(ConfigUtil.getAppJspPath() + path).forward(request, response);
                     }
                 }
-            }else if(result instanceof Data){
+            } else if (result instanceof Data) {
                 //返回json数据
                 Data data = (Data) result;
                 Object model = data.getModel();
-                if (model!=null){
+                if (model != null) {
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
                     PrintWriter writer = response.getWriter();
