@@ -9,6 +9,7 @@ import java.util.Properties;
  * 解析配置类
  */
 public final class ConfigUtil {
+
     private static final Properties CONFIG_PROPERTIES = load(ConfigConstant.CONFIG_FILE_NAME);
 
     /**
