@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class BeanHelper {
+public final class BeanHelper {
 
     /**
      * 定义Bean映射（用于存放Bean类与Bean实例的映射关系）
@@ -26,6 +26,13 @@ public class BeanHelper {
      */
     public static Map<Class<?>, Object> getBeanMap() {
         return BEAN_MAP;
+    }
+
+    /**
+     * 设置bean实例
+     */
+    public static void setBean(Class<?> cls, Object obj) {
+        BEAN_MAP.put(cls, obj);
     }
 
     /**

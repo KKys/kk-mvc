@@ -5,10 +5,11 @@ import org.kkmvc.annotation.Service;
 import org.kkmvc.utils.ClassUtil;
 import org.kkmvc.utils.ConfigUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClassHelper {
+public final class ClassHelper {
 
     /**
      * 定义类集合（用于存放所加载的类）
@@ -64,5 +65,36 @@ public class ClassHelper {
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
         return beanClassSet;
+    }
+
+    /**
+     * 获取应用包名下某父类（或接口）的所有子类（或实现类）
+     * <p>
+     * isAssignableFrom 是用来判断一个类Class1和另一个类Class2是否相同或是另一个类的超类或接口。
+     * 通常调用格式是：
+     * Class1.isAssignableFrom (Class2)
+     * 调用者和参数都是   java.lang.Class   类型。
+     */
+    public static Set<Class<?>> getClassSetBySuper(Class<?> superClass) {
+        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (superClass.isAssignableFrom(cls) && !superClass.equals(cls)) {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
+    }
+
+    /**
+     * 获取应用包名下的带有某注解的所有类
+     */
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass) {
+        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(annotationClass)) {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
     }
 }
