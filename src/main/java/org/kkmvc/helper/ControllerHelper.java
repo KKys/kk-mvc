@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * 控制器助手类
  */
-public class ControllerHelper {
+public final class ControllerHelper {
 
     /**
      * 用于存放请求与controller的映射关系
