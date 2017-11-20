@@ -2,14 +2,12 @@ package org.kkmvc.helper;
 
 import org.kkmvc.annotation.Aspect;
 import org.kkmvc.proxy.AspectProxy;
+import org.kkmvc.proxy.Proxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 方法拦截助手类
@@ -17,6 +15,11 @@ import java.util.Set;
 public final class AopHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AopHelper.class);
+
+    static {
+//        Map<Class<?>, Set<Class<?>>> proxyMap = createProxyMap();
+//        Map<Class<?>, List<Proxy>> targetMap = createTMap();
+    }
 
     private static Set<Class<?>> createTargetClassSet(Aspect aspect) throws Exception {
         Set<Class<?>> targetClassSet = new HashSet<Class<?>>();
@@ -39,4 +42,24 @@ public final class AopHelper {
         }
         return proxyMap;
     }
+
+    private static Map<Class<?>, List<Proxy>> createTargetMap(Map<Class<?>,Set<Class<?>>> proxyMap) throws Exception{
+        Map<Class<?>,List<Proxy>> targetMap = new HashMap<Class<?>, List<Proxy>>();
+        for(Map.Entry<Class<?>,Set<Class<?>>> proxyEntry : proxyMap.entrySet()){
+            Class<?> proxyClass = proxyEntry.getKey();
+            Set<Class<?>> targetClassSet = proxyEntry.getValue();
+            for(Class<?> targetClass : targetClassSet){
+                Proxy proxy = (Proxy) proxyClass.newInstance();
+                if(targetMap.containsKey(targetClass)){
+                    targetMap.get(targetClass).add(proxy);
+                }else {
+                    List<Proxy> proxyList = new ArrayList<Proxy>();
+                    proxyList.add(proxy);
+                    targetMap.put(targetClass,proxyList);
+                }
+            }
+        }
+        return targetMap;
+    }
+
 }
