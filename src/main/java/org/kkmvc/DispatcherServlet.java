@@ -9,8 +9,7 @@ import org.kkmvc.bean.View;
 import org.kkmvc.helper.BeanHelper;
 import org.kkmvc.helper.ControllerHelper;
 import org.kkmvc.helper.HelperLoader;
-import org.kkmvc.utils.ConfigUtil;
-import org.kkmvc.utils.ReflectionUtil;
+import org.kkmvc.utils.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -81,7 +80,7 @@ public class DispatcherServlet extends HttpServlet {
                 paramMap.put(paramName, paramValue);
             }
             //获取请求体
-            String body = CodecUtil.decodeUrl(StreamUtil.getString(request.getInputStream()));
+            String body = CodecUtil.decodeURL(StreamUtil.getString(request.getInputStream()));
             if (StringUtils.isNotEmpty(body)) {
                 //分割请求体的参数
                 String[] params = StringUtils.split(body, "&");
