@@ -17,8 +17,8 @@ public final class AopHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(AopHelper.class);
 
     static {
-//        Map<Class<?>, Set<Class<?>>> proxyMap = createProxyMap();
-//        Map<Class<?>, List<Proxy>> targetMap = createTMap();
+        Map<Class<?>, Set<Class<?>>> proxyMap = createProxyMap();
+        Map<Class<?>, List<Proxy>> targetMap = createTMap();
     }
 
     private static Set<Class<?>> createTargetClassSet(Aspect aspect) throws Exception {
